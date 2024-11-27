@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World History Quiz: World History</title>
+    <style>
+        /* Styling for the quiz */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+
+        #quiz-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #question-container {
+            margin-top: 20px;
+        }
+
+        .choice-button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .choice-button:hover {
+            background: #0056b3;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 5px solid #ccc;
+        }
+
+        #next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #next-button:disabled {
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>World History Quiz: It's a Quiz about History</h1>
+        <div id="question-container"></div>
+        <button id="next-button">Next Question</button>
+        <div id="feedback"></div>
+    </div>
+    <script>
+        // JavaScript for quiz functionality
+        const questions = [
+{
+    question: "What was the main reason for the start of the Cold War?",
+    choices: [
+        "The assassination of Archduke Franz Ferdinand",
+        "Conflicting ideologies between the U.S. and the Soviet Union",
+        "The unification of Germany",
+        "The Treaty of Versailles"
+    ],
+    correctAnswer: 1,
+    explanation: "The Cold War began due to ideological conflicts between the capitalist United States and the communist Soviet Union after World War II."
+},
+{
+    question: "Which battle was a major turning point during World War I?",
+    choices: [
+        "Battle of Verdun",
+        "Battle of Stalingrad",
+        "Battle of Midway",
+        "Battle of Normandy"
+    ],
+    correctAnswer: 0,
+    explanation: "The Battle of Verdun (1916) was one of the longest and most brutal battles of World War I, symbolizing the war's intensity and scale."
+},
+{
+    question: "What weapon of war was first used extensively during World War I?",
+    choices: [
+        "Atomic bombs",
+        "Machine guns",
+        "Tanks",
+        "Chemical weapons"
+    ],
+    correctAnswer: 3,
+    explanation: "Chemical weapons, including mustard gas, were used extensively for the first time during World War I, causing horrific injuries and deaths."
+},
+{
+    question: "What was the goal of the Schlieffen Plan during World War I?",
+    choices: [
+        "To defeat France quickly and focus on Russia",
+        "To establish naval superiority",
+        "To isolate Britain from the war",
+        "To strengthen the Eastern Front"
+    ],
+    correctAnswer: 0,
+    explanation: "The Schlieffen Plan aimed to quickly defeat France by invading through Belgium, allowing Germany to concentrate its forces on Russia."
+},
+{
+    question: "What was a major cause of the Russian Revolution in 1917?",
+    choices: [
+        "The Treaty of Versailles",
+        "Widespread poverty and discontent with Tsarist rule",
+        "Conflict with the Ottoman Empire",
+        "The rise of capitalism"
+    ],
+    correctAnswer: 1,
+    explanation: "The Russian Revolution was driven by widespread poverty, war losses, and dissatisfaction with Tsar Nicholas II's autocratic rule."
+},
+{
+    question: "What event marked the end of World War II in Europe?",
+    choices: [
+        "The Battle of Midway",
+        "The D-Day invasion",
+        "The fall of Berlin",
+        "The signing of the Treaty of Versailles"
+    ],
+    correctAnswer: 2,
+    explanation: "The fall of Berlin in May 1945 and the subsequent surrender of Germany marked the end of World War II in Europe."
+},
+{
+    question: "What was the main purpose of the Nuremberg Trials after World War II?",
+    choices: [
+        "To rebuild Europe",
+        "To prosecute Nazi leaders for war crimes",
+        "To establish NATO",
+        "To divide Germany into occupation zones"
+    ],
+    correctAnswer: 1,
+    explanation: "The Nuremberg Trials held Nazi leaders accountable for war crimes, including the Holocaust and crimes against humanity."
+},
+{
+    question: "Which country launched the first artificial satellite, Sputnik, into space?",
+    choices: [
+        "The United States",
+        "The Soviet Union",
+        "China",
+        "Japan"
+    ],
+    correctAnswer: 1,
+    explanation: "The Soviet Union launched Sputnik in 1957, marking the beginning of the space race during the Cold War."
+},
+{
+    question: "What was the purpose of the Warsaw Pact?",
+    choices: [
+        "To rebuild Europe",
+        "To create an alliance of communist nations",
+        "To end World War II",
+        "To compete with NATO in the space race"
+    ],
+    correctAnswer: 1,
+    explanation: "The Warsaw Pact was a military alliance formed in 1955 by the Soviet Union and its satellite states to counter NATO."
+},
+{
+    question: "What was the purpose of Gandhi's Salt March in 1930?",
+    choices: [
+        "To protest British taxes on salt",
+        "To end British colonial rule in India",
+        "To promote industrialization",
+        "To support British World War II efforts"
+    ],
+    correctAnswer: 0,
+    explanation: "The Salt March was a nonviolent protest against British salt taxes, symbolizing India's push for independence."
+},
+{
+    question: "Which war marked the first major conflict of the Cold War?",
+    choices: [
+        "Vietnam War",
+        "Korean War",
+        "Cuban Missile Crisis",
+        "Persian Gulf War"
+    ],
+    correctAnswer: 1,
+    explanation: "The Korean War (1950–1953) was the first major conflict of the Cold War, with U.S. and Soviet-backed forces fighting for control of Korea."
+},
+{
+    question: "What event brought the United States into World War II?",
+    choices: [
+        "The attack on Pearl Harbor",
+        "The invasion of Poland",
+        "The D-Day invasion",
+        "The Treaty of Versailles"
+    ],
+    correctAnswer: 0,
+    explanation: "Japan's attack on Pearl Harbor on December 7, 1941, prompted the United States to enter World War II."
+},
+{
+    question: "Which U.S. policy aimed to contain the spread of communism?",
+    choices: [
+        "The Marshall Plan",
+        "The Truman Doctrine",
+        "The Monroe Doctrine",
+        "The Good Neighbor Policy"
+    ],
+    correctAnswer: 1,
+    explanation: "The Truman Doctrine was a Cold War policy aimed at containing the spread of communism by providing aid to threatened nations."
+},
+{
+    question: "What was the goal of the Decolonization Movement?",
+    choices: [
+        "To end colonial rule in Africa and Asia",
+        "To promote capitalism",
+        "To rebuild European economies",
+        "To establish NATO"
+    ],
+    correctAnswer: 0,
+    explanation: "The Decolonization Movement sought to end European colonial rule in Africa and Asia after World War II."
+},
+{
+    question: "Which leader is associated with the policy of glasnost in the Soviet Union?",
+    choices: [
+        "Joseph Stalin",
+        "Vladimir Lenin",
+        "Mikhail Gorbachev",
+        "Nikita Khrushchev"
+    ],
+    correctAnswer: 2,
+    explanation: "Mikhail Gorbachev introduced glasnost ('openness') in the 1980s to encourage political transparency and reform in the Soviet Union."
+},
+{
+    question: "What was the significance of the fall of the Berlin Wall?",
+    choices: [
+        "It marked the start of World War II",
+        "It ended communist rule in Eastern Europe",
+        "It divided East and West Berlin",
+        "It established NATO"
+    ],
+    correctAnswer: 1,
+    explanation: "The fall of the Berlin Wall in 1989 symbolized the collapse of communist regimes in Eastern Europe and the end of the Cold War."
+},
+{
+    question: "What caused the Persian Gulf War in 1991?",
+    choices: [
+        "The Soviet invasion of Afghanistan",
+        "Iraq's invasion of Kuwait",
+        "The fall of the Berlin Wall",
+        "The attack on Pearl Harbor"
+    ],
+    correctAnswer: 1,
+    explanation: "The Persian Gulf War was caused by Iraq's invasion of Kuwait, prompting a U.S.-led coalition to liberate Kuwait."
+},
+{
+    question: "What was the primary cause of the Rwandan Genocide in 1994?",
+    choices: [
+        "Ethnic tensions between Hutus and Tutsis",
+        "Religious conflicts",
+        "Economic depression",
+        "Colonial occupation"
+    ],
+    correctAnswer: 0,
+    explanation: "The Rwandan Genocide was caused by long-standing ethnic tensions between the Hutu majority and the Tutsi minority."
+},
+{
+    question: "What was the purpose of the Kyoto Protocol?",
+    choices: [
+        "To reduce global greenhouse gas emissions",
+        "To establish free trade",
+        "To prevent nuclear proliferation",
+        "To promote globalization"
+    ],
+    correctAnswer: 0,
+    explanation: "The Kyoto Protocol was an international treaty adopted in 1997 to reduce greenhouse gas emissions and combat climate change."
+},
+{
+    question: "What event symbolized the beginning of the Arab Spring?",
+    choices: [
+        "The fall of the Berlin Wall",
+        "The self-immolation of a Tunisian street vendor",
+        "The Persian Gulf War",
+        "The signing of the Paris Agreement"
+    ],
+    correctAnswer: 1,
+    explanation: "The self-immolation of Mohamed Bouazizi in Tunisia in 2010 sparked widespread protests, marking the beginning of the Arab Spring."
+}
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionContainer = document.getElementById("question-container");
+        const feedbackContainer = document.getElementById("feedback");
+        const nextButton = document.getElementById("next-button");
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            questionContainer.innerHTML = `
+                <h2>${question.question}</h2>
+                ${question.choices.map((choice, index) => `
+                    <button class="choice-button" data-choice="${index}">${choice}</button>
+                `).join('')}
+            `;
+            feedbackContainer.innerHTML = "";
+            nextButton.style.display = "none";
+
+            const choiceButtons = document.querySelectorAll(".choice-button");
+            choiceButtons.forEach(button => {
+                button.addEventListener("click", (e) => {
+                    const userAnswer = parseInt(e.target.getAttribute("data-choice"));
+                    checkAnswer(userAnswer);
+                });
+            });
+        }
+
+        function checkAnswer(userAnswer) {
+            const question = questions[currentQuestion];
+            const isCorrect = userAnswer === question.correctAnswer;
+            feedbackContainer.innerHTML = `
+                <p>${isCorrect ? "Correct!" : "Incorrect."}</p>
+                <p>${isCorrect ? "" : `The correct answer is: ${question.choices[question.correctAnswer]}`}</p>
+                <p>${question.explanation}</p>
+            `;
+            if (isCorrect) score++;
+            nextButton.style.display = "block";
+
+            // Disable buttons after selecting an answer
+            const choiceButtons = document.querySelectorAll(".choice-button");
+            choiceButtons.forEach(button => button.disabled = true);
+        }
+
+        nextButton.addEventListener("click", () => {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                questionContainer.innerHTML = `
+                    <h2>Quiz Complete!</h2>
+                    <p>Your Score: ${score} / ${questions.length}</p>
+                `;
+                nextButton.style.display = "none";
+            }
+        });
+
+        // Load the first question on startup
+        loadQuestion();
+    </script>
+</body>
+</html>
